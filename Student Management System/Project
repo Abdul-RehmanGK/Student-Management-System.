@@ -1,0 +1,274 @@
+#include<iostream>
+#include<fstream>
+using namespace std;
+
+struct student{	
+	int stdroll[3],stdage[3];
+	string stdname[3];
+};
+student currentstudent;
+void addstd(){
+	char morestd, morestd1;
+	cout<<"\n\t(Add 3 Students)\n\n";
+		cout<<"\tEnter the Name: ";
+		cin>>currentstudent.stdname[0];
+		cout<<"\tEnter the Roll Number: ";
+		cin>>currentstudent.stdroll[0];
+		cout<<"\tEnter the Age of Student: ";
+		cin>>currentstudent.stdage[0];
+		cout<<"\n\t\t\t\t\t(Student 1  Added Successfully...)\n\n";
+		cout<<"\n\tDo you want to add another student(y or n): ";
+		cin>>morestd;
+		if(morestd=='Y'||morestd=='y'){
+			starta:
+			cout<<"\tEnter the Name: ";
+			cin>>currentstudent.stdname[1];
+			if(currentstudent.stdname[1]==currentstudent.stdname[0]){
+				cout<<"\n\tYou already add this student\n\tPlease add another one."<<endl;
+				goto starta;
+				}else
+				if(currentstudent.stdname[1]!=currentstudent.stdname[0]){
+					cout<<"\tEnter the Roll Number: ";
+					cin>>currentstudent.stdroll[1];
+					cout<<"\tEnter the Age of Student: ";
+					cin>>currentstudent.stdage[1];
+					cout<<"\n\t\t\t\t\t(Student2 Added Successfully...)\n\n";
+					cout<<"\n\tWant to add another student(Y or N): ";
+					cin>>morestd1;
+					if(morestd1=='Y'||morestd1=='y'){
+						start2:
+						cout<<"\tEnter the Name: ";
+						cin>>currentstudent.stdname[2];
+						if(currentstudent.stdname[2]==currentstudent.stdname[0]||currentstudent.stdname[2]==currentstudent.stdname[1]){
+							cout<<"\n\tYou already add this student\n\tPlease add another one."<<endl;
+							goto start2;
+						}else
+						if(currentstudent.stdname[2]!=currentstudent.stdname[0]||currentstudent.stdname[2]!=currentstudent.stdname[1]){
+							cout<<"\tEnter the Roll Number: ";
+							cin>>currentstudent.stdroll[2];
+							cout<<"\tEnter the Age of Student: ";
+							cin>>currentstudent.stdage[2];
+							cout<<"\n\t\t\t\t\t(Student3 Added Successfully...)\n\n";
+						}
+						}else
+						if(morestd1=='N'||morestd1=='n'){
+							cout<<"\n\tLoading.........";
+						}
+					
+			}
+			}
+		else
+			if(morestd=='N'||morestd=='n'){
+				cout<<"\n\tLoading..........";
+			}
+
+	ofstream outFile("students.txt");
+}
+
+void disstd(){
+	for(int i; i<3; i++){
+		cout<<"\n\tName of Student: "<<currentstudent.stdname[i]<<endl;
+		cout<<"\n\tRoll Number of Student: "<<currentstudent.stdroll[i]<<endl;
+		cout<<"\n\tAge of the Student: "<<currentstudent.stdage[i]<<"\n\n";
+	}
+}
+void Updstd(){
+	string newstdname, checkname;
+	int newstdroll, newstdage;
+	startu:
+	cout<<"\tEnter the Student Name: ";
+	cin>>checkname;
+	for(int i; i<1; i++){
+		if(checkname==currentstudent.stdname[0]){
+			cout<<"\tEnter the New Student Name: ";
+			cin>>newstdname;
+			cout<<"\tEnter the New Student Roll No. ";
+			cin>>newstdroll;
+			cout<<"\tEnter the New Student Age: ";
+			cin>>newstdage;
+			currentstudent.stdname[0]=newstdname;
+			currentstudent.stdroll[0]=newstdroll;
+			currentstudent.stdage[0]=newstdage;	
+		}else
+		if(checkname==currentstudent.stdname[1]){
+			cout<<"\tEnter the New Student Name: ";
+			cin>>newstdname;
+			cout<<"\tEnter the New Student Roll No. ";
+			cin>>newstdroll;
+			cout<<"\tEnter the New Student Age: ";
+			cin>>newstdage;
+			currentstudent.stdname[1]=newstdname;
+			currentstudent.stdroll[1]=newstdroll;
+			currentstudent.stdage[1]=newstdage;	
+		}else
+		if(checkname==currentstudent.stdname[2]){
+			cout<<"\tEnter the New Student Name: ";
+			cin>>newstdname;
+			cout<<"\tEnter the New Student Roll No. ";
+			cin>>newstdroll;
+			cout<<"\tEnter the New Student Age: ";
+			cin>>newstdage;
+			currentstudent.stdname[2]=newstdname;
+			currentstudent.stdroll[2]=newstdroll;
+			currentstudent.stdage[2]=newstdage;
+		}else
+		if(checkname!=currentstudent.stdname[0]||checkname!=currentstudent.stdname[1]||checkname!=currentstudent.stdname[2]){
+		int opt;
+			cout<<"\tStudent name didn't found.";
+			cout<<"\tPress 1. for retry.\n";
+			cin>>opt;
+			if(opt==1){
+				cout<<endl;
+				goto startu;
+		}
+	}
+	}
+}
+void delstd(){
+	string searchname;
+	cout<<"\tFor Deleting student data."<<endl;
+	cout<<"\tEnter the search student: ";
+	cin>>searchname;
+	for(int i=0; i<1; i++){
+		if(searchname==currentstudent.stdname[0]){
+			currentstudent.stdname[0].clear();
+			currentstudent.stdroll[0]=0;
+			currentstudent.stdage[0]=0;		
+		}else 
+		if(searchname==currentstudent.stdname[1]){
+			currentstudent.stdname[1].clear();
+			currentstudent.stdroll[1]=0;
+			currentstudent.stdage[1]=0;	
+		}else 
+		if(searchname==currentstudent.stdname[2]){
+			currentstudent.stdname[2].clear();
+			currentstudent.stdroll[2]=0;
+			currentstudent.stdage[2]=0;
+		}
+	}
+}
+void searchstd(){
+	string searchstdname;
+	int choicer;
+	startr:
+	cout<<"\tEnter the name: ";
+	cin>>searchstdname;
+	for(int i; i<1; i++){
+		if(searchstdname==currentstudent.stdname[0]){
+			cout<<"\n\tName of Student: "<<currentstudent.stdname[0]<<endl;
+			cout<<"\n\tRoll Number of Student: "<<currentstudent.stdroll[0]<<endl;
+			cout<<"\n\tAge of the Student: "<<currentstudent.stdage[0]<<"\n\n";
+		}
+		else 
+		if(searchstdname==currentstudent.stdname[1]){
+			cout<<"\n\tName of Student: "<<currentstudent.stdname[1]<<endl;
+			cout<<"\n\tRoll Number of Student: "<<currentstudent.stdroll[1]<<endl;
+			cout<<"\n\tAge of the Student: "<<currentstudent.stdage[1]<<"\n\n";	
+		}else 
+		if(searchstdname==currentstudent.stdname[2]){
+			cout<<"\n\tName of Student: "<<currentstudent.stdname[2]<<endl;
+			cout<<"\n\tRoll Number of Student: "<<currentstudent.stdroll[2]<<endl;
+			cout<<"\n\tAge of the Student: "<<currentstudent.stdage[2]<<"\n\n";
+		}else
+		if(searchstdname!=currentstudent.stdname[0]||searchstdname!=currentstudent.stdname[1]||searchstdname!=currentstudent.stdname[2]){
+			cout<<"\tEntered name not matched."<<endl;
+			cout<<"\tPress 1 for renter the name.\n\tPress 2 for close.\t";
+			cin>>choicer;
+		}
+		if(choicer==1){
+			cout<<endl;
+			goto startr;
+		}
+		if(choicer==2){
+			cout<<"\tProgram Ends....\a";
+		}
+	}
+}
+
+int main(){
+	system("color 09");
+	cout<<"\t\t\t________________________________________________________________\n\n";
+	cout<<"\t\t\t\t\tWelcome to Student Management System\n";
+	cout<<"\t\t\t________________________________________________________________\n\n";
+	start:
+		cout<<"	1.Add Student: "<<endl;
+		cout<<"	2.Search Student: "<<endl;
+		cout<<"	3.Update Student: "<<endl;
+		cout<<"	4.Delete Student: "<<endl;
+		cout<<"	5.Exiting: "<<endl;
+		cout<<endl;
+		int choice;
+		cout<<"\tPlease Choose One Option: ";
+		cin>>choice;
+		cout<<endl;
+		char cont;
+		switch(choice){
+			case 1:
+				addstd();
+				cout<<endl;
+				disstd();
+				cout<<"\n\tDo you want to continue(y or n): ";
+				cin>>cont;
+					if(cont=='Y'||cont=='y'){
+						cout<<endl;
+						goto start;
+					}
+					if(cont=='N'||cont=='n'){
+						cout<<"Exiting.....\a";
+						break;
+					}
+			break;
+			case 2:
+				searchstd();
+				cout<<"\tDo you want to continue(y or n): ";
+				cin>>cont;
+					if(cont=='Y'||cont=='y'){
+						goto start;
+					}
+					if(cont=='N'||cont=='n'){
+						cout<<"Exiting.....\a";
+						break;
+					}
+			break;
+			case 3:
+				Updstd();
+				cout<<endl;	
+				disstd();
+				char cont1;
+				cout<<"\tDo you want to continue(y or n): ";
+				cin>>cont1;
+					if(cont1=='Y'||cont1=='y'){
+						goto start;
+					}
+					if(cont1=='N'||cont1=='n'){
+						cout<<"\tExiting.....\a";
+						break;
+					}
+				cout<<endl;	
+				disstd();
+			break;
+			case 4:
+				delstd();
+				char cont2;
+				cout<<endl;	
+				disstd();
+				cout<<"\tDo you want to continue(y or n): ";
+				cin>>cont2;
+					if(cont2=='Y'||cont2=='y'){
+						goto start;
+					}
+					if(cont2=='N'||cont2=='n'){
+						cout<<"\tExiting.....\a";
+						break;
+					}
+			break;
+			case 5:
+				cout<<"\tProgram Ends.....\a";
+				break;
+			default:
+				cout<<"\n\tInvalid Choice.Please choose a valid option.\n\n";
+				goto start;
+		}
+	return 0;
+}
+
